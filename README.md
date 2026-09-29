@@ -18,7 +18,7 @@ ensino, pesquisa e extensão.
 | Dia   | Tema                                          | Material |
 |-------|-----------------------------------------------|----------|
 | Dia 1 | Conceitos estatísticos básicos                | [Slides (PDF)](WorkShop-dia1.pdf) |
-| Dia 2 | Coleta e tratamento de dados no software R    | [Repositório Limpeza de dados no R](https://github.com/estephany0liveira/Limpeza-de-dados-no-R) |
+| Dia 2 | Coleta e tratamento de dados no software R    | [Repositório Limpeza de dados no R](https://github.com/leaufrn/Limpeza-de-dados-no-R) |
 | Dia 3 | Visualização e exploração de dados            | [Roteiro ggplot2 (Quarto)](workshop_ggplot2_apresentador.qmd) |
 
 ## Pré-requisitos
