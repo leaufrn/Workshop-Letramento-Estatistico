@@ -1,0 +1,771 @@
+---
+title: "Visualização de Dados com ggplot2"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+
+# Renomear colunas para português
+pinguins <- palmerpenguins::penguins |>
+  rename(
+    especie               = species,
+    ilha                  = island,
+    comprimento_bico      = bill_length_mm,
+    profundidade_bico     = bill_depth_mm,
+    comprimento_nadadeira = flipper_length_mm,
+    massa_corporal        = body_mass_g,
+    sexo                  = sex,
+    ano                   = year
+  )
+```
+
+# Parte 1 {background-color="#1e3a5f"}
+
+## O que é o ggplot2? {.center}
+
+> *"O gráfico simples trouxe mais informações à mente dos analistas de dados do que qualquer outro dispositivo."* --- John Tukey
+
+------------------------------------------------------------------------
+
+## A Gramática dos Gráficos
+
+O **ggplot2** implementa um sistema chamado **gramática dos gráficos**: cada visualização é composta de camadas independentes que se combinam.
+
+Todo gráfico começa com a mesma estrutura:
+
+``` r
+ggplot(data = <DADOS>, mapping = aes(<MAPEAMENTOS>)) +
+  <GEOM_FUNÇÃO>()
+```
+
+::: callout-tip
+Aprenda uma vez, aplique em qualquer lugar!
+:::
+
+------------------------------------------------------------------------
+
+## Pré-requisitos
+
+Instale e carregue os pacotes necessários:
+
+```{r}
+#| eval: false
+install.packages(c("tidyverse", "palmerpenguins", "ggthemes"))
+```
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+
+# Renomear colunas para português
+pinguins <- palmerpenguins::penguins |>
+  rename(
+    especie               = species,
+    ilha                  = island,
+    comprimento_bico      = bill_length_mm,
+    profundidade_bico     = bill_depth_mm,
+    comprimento_nadadeira = flipper_length_mm,
+    massa_corporal        = body_mass_g,
+    sexo                  = sex,
+    ano                   = year
+  )
+```
+
+------------------------------------------------------------------------
+
+# Parte 2 {background-color="#1e3a5f"}
+
+## Os Dados: Pinguins 🐧
+
+------------------------------------------------------------------------
+
+## O data frame `pinguins`
+
+```{r}
+glimpse(pinguins)
+```
+
+------------------------------------------------------------------------
+
+## Variáveis principais
+
+| Variável                | Tipo       | Descrição              |
+|-------------------------|------------|------------------------|
+| `especie`               | Categórica | 3 espécies de pinguins |
+| `ilha`                  | Categórica | Ilha de origem         |
+| `comprimento_nadadeira` | Numérica   | Em milímetros          |
+| `massa_corporal`        | Numérica   | Em gramas              |
+| `sexo`                  | Categórica | Macho / Fêmea          |
+
+------------------------------------------------------------------------
+
+# Parte 3 {background-color="#1e3a5f"}
+
+## Criando o Primeiro Gráfico
+
+------------------------------------------------------------------------
+
+## Passo 1 --- Tela em branco
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 2 --- Definindo os eixos
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 3 --- Adicionando pontos
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 4 --- Colorindo por espécie
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 5 --- Forma + Cor
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 6 --- Linha de tendência
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 7 --- Rótulos e tema final
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+# Parte 4 {background-color="#1e3a5f"}
+
+## Visualizando Distribuições
+
+------------------------------------------------------------------------
+
+## Variável Categórica --- `geom_bar()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Reordenando as barras
+
+```{r}
+#| fig-height: 4
+
+```
+
+::: callout-note
+`fct_infreq()` ordena os níveis pela frequência (maior → menor).
+:::
+
+------------------------------------------------------------------------
+
+## Variável Numérica --- `geom_histogram()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## O impacto do `binwidth`
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 3
+
+```
+
+------------------------------------------------------------------------
+
+## Curva de densidade --- `geom_density()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## ✏️ Exercícios --- Distribuições
+
+1.  Faça um gráfico de barras de `especie` mapeando para o eixo **y** (barra horizontal).
+2.  Qual a diferença entre `color = "red"` e `fill = "red"` em `geom_bar()`?
+3.  Experimente `geom_histogram()` no dataset `diamante` com diferentes `binwidth`.
+
+------------------------------------------------------------------------
+
+# Parte 5 {background-color="#1e3a5f"}
+
+## Visualizando Relações
+
+------------------------------------------------------------------------
+
+## Numérica × Categórica --- `geom_boxplot()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Anatomia do Boxplot
+
+```{r}
+#| echo: false
+#| fig-height: 4
+
+```
+
+::: callout-tip
+A linha central é a **mediana**. A caixa contém 50% dos dados (IQR). Pontos além dos "whiskers" são potenciais *outliers*.
+:::
+
+------------------------------------------------------------------------
+
+## Densidades por grupo
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Duas variáveis categóricas --- barras empilhadas
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Duas variáveis numéricas --- dispersão
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Três+ variáveis --- Facetas
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## ✏️ Exercícios --- Relações
+
+1.  Faça um boxplot de `comprimento_bico` por `especie`.
+2.  Crie um gráfico de dispersão de `comprimento_bico` vs `profundidade_bico`, colorindo por `especie`. O que você observa?
+3.  Adicione `facet_wrap(~sexo)` ao gráfico anterior. Como a relação muda?
+
+------------------------------------------------------------------------
+
+# Parte 6 {background-color="#1e3a5f"}
+
+## Salvando Gráficos
+
+------------------------------------------------------------------------
+
+## `ggsave()`
+
+```{r}
+#| eval: false
+
+```
+
+::: callout-tip
+Sempre especifique `width`, `height` e `dpi` para resultados reprodutíveis!
+:::
+
+------------------------------------------------------------------------
+
+# Resumo {background-color="#1e3a5f"}
+
+------------------------------------------------------------------------
+
+## O que aprendemos hoje
+
+| Conceito            | Função             |
+|---------------------|--------------------|
+| Iniciar gráfico     | `ggplot()`         |
+| Mapeamento estético | `aes()`            |
+| Pontos              | `geom_point()`     |
+| Barras              | `geom_bar()`       |
+| Histograma          | `geom_histogram()` |
+| Boxplot             | `geom_boxplot()`   |
+| Densidade           | `geom_density()`   |
+| Linha suave         | `geom_smooth()`    |
+| Facetas             | `facet_wrap()`     |
+| Rótulos             | `labs()`           |
+| Salvar              | `ggsave()`         |
+
+------------------------------------------------------------------------
+
+## Próximos passos
+
+-   **Capítulo 9** do R4DS: Camadas e mais geometrias
+-   **Capítulo 11**: Comunicação --- refinando gráficos para publicação
+-   Explore `theme_*()` para personalizar a aparência
+-   Conheça `scales::` para controlar eixos e legendas
+
+------------------------------------------------------------------------
+
+## Referências
+
+-   Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). **R para Ciência de Dados** (2ª ed.). <https://pt.r4ds.hadley.nz>
+-   Documentação do ggplot2: <https://ggplot2.tidyverse.org>
+
+------------------------------------------------------------------------
+
+## ✏️ Desafio Final
+
+Usando o dataset `pinguins`, construa um único gráfico que mostre:
+
+-   Relação entre `comprimento_bico` (x) e `profundidade_bico` (y)
+-   Cor por `especie`
+-   Linha de tendência **por espécie**
+-   Títulos e rótulos adequados
+-   Separado por `ilha` usando facetas
+
+```{r}
+#| echo: false
+#| eval: false
+
+```
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+
+# Renomear colunas para português
+pinguins <- palmerpenguins::penguins |>
+  rename(
+    especie               = species,
+    ilha                  = island,
+    comprimento_bico      = bill_length_mm,
+    profundidade_bico     = bill_depth_mm,
+    comprimento_nadadeira = flipper_length_mm,
+    massa_corporal        = body_mass_g,
+    sexo                  = sex,
+    ano                   = year
+  )
+```
+
+# Parte 1 {background-color="#1e3a5f"}
+
+## O que é o ggplot2? {.center}
+
+> *"O gráfico simples trouxe mais informações à mente dos analistas de dados do que qualquer outro dispositivo."* --- John Tukey
+
+------------------------------------------------------------------------
+
+## A Gramática dos Gráficos
+
+O **ggplot2** implementa um sistema chamado **gramática dos gráficos**: cada visualização é composta de camadas independentes que se combinam.
+
+Todo gráfico começa com a mesma estrutura:
+
+``` r
+ggplot(data = <DADOS>, mapping = aes(<MAPEAMENTOS>)) +
+  <GEOM_FUNÇÃO>()
+```
+
+::: callout-tip
+Aprenda uma vez, aplique em qualquer lugar!
+:::
+
+------------------------------------------------------------------------
+
+## Pré-requisitos
+
+Instale e carregue os pacotes necessários:
+
+```{r}
+#| eval: false
+install.packages(c("tidyverse", "palmerpenguins", "ggthemes"))
+```
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+
+# Renomear colunas para português
+pinguins <- palmerpenguins::penguins |>
+  rename(
+    especie               = species,
+    ilha                  = island,
+    comprimento_bico      = bill_length_mm,
+    profundidade_bico     = bill_depth_mm,
+    comprimento_nadadeira = flipper_length_mm,
+    massa_corporal        = body_mass_g,
+    sexo                  = sex,
+    ano                   = year
+  )
+```
+
+------------------------------------------------------------------------
+
+# Parte 2 {background-color="#1e3a5f"}
+
+## Os Dados: Pinguins 🐧
+
+------------------------------------------------------------------------
+
+## O data frame `pinguins`
+
+```{r}
+glimpse(pinguins)
+```
+
+------------------------------------------------------------------------
+
+## Variáveis principais
+
+| Variável                | Tipo       | Descrição              |
+|-------------------------|------------|------------------------|
+| `especie`               | Categórica | 3 espécies de pinguins |
+| `ilha`                  | Categórica | Ilha de origem         |
+| `comprimento_nadadeira` | Numérica   | Em milímetros          |
+| `massa_corporal`        | Numérica   | Em gramas              |
+| `sexo`                  | Categórica | Macho / Fêmea          |
+
+------------------------------------------------------------------------
+
+# Parte 3 {background-color="#1e3a5f"}
+
+## Criando o Primeiro Gráfico
+
+------------------------------------------------------------------------
+
+## Passo 1 --- Tela em branco
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 2 --- Definindo os eixos
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 3 --- Adicionando pontos
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 4 --- Colorindo por espécie
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 5 --- Forma + Cor
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 6 --- Linha de tendência
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Passo 7 --- Rótulos e tema final
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+# Parte 4 {background-color="#1e3a5f"}
+
+## Visualizando Distribuições
+
+------------------------------------------------------------------------
+
+## Variável Categórica --- `geom_bar()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Reordenando as barras
+
+```{r}
+#| fig-height: 4
+
+```
+
+::: callout-note
+`fct_infreq()` ordena os níveis pela frequência (maior → menor).
+:::
+
+------------------------------------------------------------------------
+
+## Variável Numérica --- `geom_histogram()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## O impacto do `binwidth`
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 3
+
+```
+
+------------------------------------------------------------------------
+
+## Curva de densidade --- `geom_density()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## ✏️ Exercícios --- Distribuições
+
+1.  Faça um gráfico de barras de `especie` mapeando para o eixo **y** (barra horizontal).
+2.  Qual a diferença entre `color = "red"` e `fill = "red"` em `geom_bar()`?
+3.  Experimente `geom_histogram()` no dataset `diamante` com diferentes `binwidth`.
+
+------------------------------------------------------------------------
+
+# Parte 5 {background-color="#1e3a5f"}
+
+## Visualizando Relações
+
+------------------------------------------------------------------------
+
+## Numérica × Categórica --- `geom_boxplot()`
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Anatomia do Boxplot
+
+```{r}
+#| echo: false
+#| fig-height: 4
+
+```
+
+::: callout-tip
+A linha central é a **mediana**. A caixa contém 50% dos dados (IQR). Pontos além dos "whiskers" são potenciais *outliers*.
+:::
+
+------------------------------------------------------------------------
+
+## Densidades por grupo
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Duas variáveis categóricas --- barras empilhadas
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Duas variáveis numéricas --- dispersão
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## Três+ variáveis --- Facetas
+
+```{r}
+#| fig-height: 4
+
+```
+
+------------------------------------------------------------------------
+
+## ✏️ Exercícios --- Relações
+
+1.  Faça um boxplot de `comprimento_bico` por `especie`.
+2.  Crie um gráfico de dispersão de `comprimento_bico` vs `profundidade_bico`, colorindo por `especie`. O que você observa?
+3.  Adicione `facet_wrap(~sexo)` ao gráfico anterior. Como a relação muda?
+
+------------------------------------------------------------------------
+
+# Parte 6 {background-color="#1e3a5f"}
+
+## Salvando Gráficos
+
+------------------------------------------------------------------------
+
+## `ggsave()`
+
+```{r}
+#| eval: false
+
+```
+
+::: callout-tip
+Sempre especifique `width`, `height` e `dpi` para resultados reprodutíveis!
+:::
+
+------------------------------------------------------------------------
+
+# Resumo {background-color="#1e3a5f"}
+
+------------------------------------------------------------------------
+
+## O que aprendemos hoje
+
+| Conceito            | Função             |
+|---------------------|--------------------|
+| Iniciar gráfico     | `ggplot()`         |
+| Mapeamento estético | `aes()`            |
+| Pontos              | `geom_point()`     |
+| Barras              | `geom_bar()`       |
+| Histograma          | `geom_histogram()` |
+| Boxplot             | `geom_boxplot()`   |
+| Densidade           | `geom_density()`   |
+| Linha suave         | `geom_smooth()`    |
+| Facetas             | `facet_wrap()`     |
+| Rótulos             | `labs()`           |
+| Salvar              | `ggsave()`         |
+
+------------------------------------------------------------------------
+
+## Próximos passos
+
+-   **Capítulo 9** do R4DS: Camadas e mais geometrias
+-   **Capítulo 11**: Comunicação --- refinando gráficos para publicação
+-   Explore `theme_*()` para personalizar a aparência
+-   Conheça `scales::` para controlar eixos e legendas
+
+------------------------------------------------------------------------
+
+## Referências
+
+-   Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). **R para Ciência de Dados** (2ª ed.). <https://pt.r4ds.hadley.nz>
+-   Documentação do ggplot2: <https://ggplot2.tidyverse.org>
+
+------------------------------------------------------------------------
+
+## ✏️ Desafio Final
+
+Usando o dataset `pinguins`, construa um único gráfico que mostre:
+
+-   Relação entre `comprimento_bico` (x) e `profundidade_bico` (y)
+-   Cor por `especie`
+-   Linha de tendência **por espécie**
+-   Títulos e rótulos adequados
+-   Separado por `ilha` usando facetas
+
+```{r}
+#| echo: false
+#| eval: false
+
+```
